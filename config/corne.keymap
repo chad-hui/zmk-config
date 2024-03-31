@@ -138,6 +138,8 @@
             >;
         };
 
+        empty_layer {
+
             // Empty Layer (Momentary)
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // |        |        |        |        |        |        |      |        |        |        |        |        |        |
@@ -149,7 +151,6 @@
                 //                            |        |        |        |      |        | SETTNG |        |
                 //                            +--------+--------+--------+      +--------+--------+--------+
 
-            
             bindings = <
                 &none     &none    &none    &none     &none    &none     &none     &none    &none    &none     &none    &none
                 &none     &none    &none    &none     &none    &none     &none     &none    &none    &none     &none    &none
