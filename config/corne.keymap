@@ -18,13 +18,13 @@
 
 
 //  
-// TESTING - momentary - layer name vs number
 // TESTING - SoftOff - tryouts
 // TESTING - SoftOff - tryout turn back on 
-// TESTING - key rename - shorten names
+// DONE - layer change - combination layer change
+// DONE - key rename - shorten names - OK!
 //     - C_AC_DESKTOP_SHOW_ALL_APPLICATIONS - show_app
 //     - C_AC_DESKTOP_SHOW_ALL_WINDOWS - show_wndw
-// LOW PRIORITY (Currently resolved) - layer change - combination layer change
+// DONE - momentary - layer name vs number - OK!
 // DONE - backspace delete
 // DONE - escape grave
 // DONE - layer change - number arrow layer
@@ -84,7 +84,7 @@
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // | SHIFT  |  CLYER |   z    |   x    |   c    |   v    |      |   b    |   n    |   m    |   ,    |   .    |   /    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  | NLYER  |  ENTR  |
+                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |  ENTR  | NLYER  |
                 //                            +--------+--------+--------+      +--------+--------+--------+
 
             // Shift Layer (Momentary)
@@ -93,16 +93,16 @@
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // |  TAB   |   A    |   S    |   D    |   F    |   G    |      |   H    |   J    |   K    |   L    |   :    |   "    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |        |  LYER2 |   Z    |   X    |   C    |   V    |      |   B    |   N    |   M    |   <    |   >    |   ?    |
+                // |        |  CLYER |   Z    |   X    |   C    |   V    |      |   B    |   N    |   M    |   <    |   >    |   ?    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  | LYER1  |  ENTR  |
+                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |  ENTR  | NLYER  |
                 //                            +--------+--------+--------+      +--------+--------+--------+
             
             bindings = <
-                &kp ESC   &kp Q    &kp W    &kp E     &kp R    &kp T      &kp Y       &kp U       &kp I     &kp O     &kp P    &bsdel
+                &kp ESC   &kp Q    &kp W    &kp E     &kp R    &kp T      &kp Y       &kp U       &kp I     &kp O     &kp P    &kp BSPC
                 &kp TAB   &kp A    &kp S    &kp D     &kp F    &kp G      &kp H       &kp J       &kp K     &kp L     &kp SEMI &kp SQT
                 &kp LSHFT &mo 2    &kp Z    &kp X     &kp C    &kp V      &kp B       &kp N       &kp M     &kp COMMA &kp DOT  &kp FSLH 
-                                            &kp LCTRL &kp RALT &kp LGUI   &kp SPACE   &mo 1       &kp RET
+                                            &kp LCTRL &kp RALT &kp LGUI   &kp SPACE   &kp RET     &mo 1
             >;
         };
 
@@ -116,25 +116,25 @@
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // | SHIFT  | LYER2  |        |        |        |   [    |      |   ]    |   <-   |   v    |  ->    | PG DN  |   \    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |        |  ENTR  |
+                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |  ENTR  |        |
                 //                            +--------+--------+--------+      +--------+--------+--------+
 
             // Shift Navigation Layer (Momentary)
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // |   ~    |   !    |   @    |   #    |   $    |   %    |      |   ^    |   &    |   *    |   (    |   )    |   +    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |  TAB   |        |        |        |        | SFTOFF |      |        |  HOME  |   ^    |  END   | PG UP  |   _    |
+                // |  TAB   |        |        |        |        |        |      |        |  HOME  |   ^    |  END   | PG UP  |   _    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // |        | LYER2  |        |        |        |   {    |      |   }    |   <-   |   v    |  ->    | PG DN  |   \    |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |        |  ENTR  |
+                //                            |  CTRL  |  OPT   |  CMD   |      |  SPCE  |  ENTR  | NLYER  |
                 //                            +--------+--------+--------+      +--------+--------+--------+
 
             bindings = <
                 &kp GRAVE &kp N1   &kp N2   &kp N3    &kp N4   &kp N5        &kp N6      &kp N7      &kp N8    &kp N9    &kp N0    &kp EQUAL
-                &kp TAB   &none    &none    &none     &none    &soft_off     &none       &kp HOME    &kp UP    &kp END   &kp PG_UP &kp MINUS
+                &kp TAB   &none    &none    &none     &none    &none         &none       &kp HOME    &kp UP    &kp END   &kp PG_UP &kp MINUS
                 &kp LSHFT &mo 2    &none    &none     &none    &kp LBKT      &kp RBKT    &kp LEFT    &kp DOWN  &kp RIGHT &kp PG_DN &kp BSLH
-                                            &kp LCTRL &kp RALT &kp LGUI      &kp SPACE   &none       &kp RET
+                                            &kp LCTRL &kp RALT &kp LGUI      &kp SPACE   &kp RET     &none
             >;
         };
 
@@ -161,21 +161,20 @@
 
         control_layer {
             // Option Lower Layer
-                // Potentially swap in F4
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |  DIM   | BRIGHT | WINDOW |SHOWAPP |  APP   |   F5   |      |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
+                // |  DIM   | BRIGHT | WINDOW |        |   F4   |   F5   |      |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |        |  BT1   |  BT2   |  BT3   |  BT4   |  BT5   |      |        |        |        |        |        |        |
+                // |        |  BT1   |  BT2   |  BT3   |  BT4   |  BT5   |      | SFTOFF |        |        |        |        |        |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |        |  USB   |  BLE   |  CLR   |  CPWR  |  KPWR  |      |        |        |        |        |        |        |
+                // |        |  USB   |  BLE   |  CLR   |        |        |      |        |        |        |        |        |        |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 //                            |        |        |        |      |        |        |        |
                 //                            +--------+--------+--------+      +--------+--------+--------+
 
             bindings = <
-                &kp C_BRI_DN &kp C_BRI_UP &ShowWndw       &ShowApp     &kp K_APP      &kp F5              &kp C_PREV &kp C_PP &kp C_NEXT &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP
-                &none        &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3   &bt BT_SEL 4        &none      &none    &none      &none      &none        &none
-                &none        &out OUT_USB &out OUT_BLE    &bt BT_CLR   &kp C_PWR      &kp K_PWR           &none      &none    &none      &none      &none        &none
+                &kp C_BRI_DN &kp C_BRI_UP &ShowWndw       &none        &kp F4         &kp F5              &kp C_PREV &kp C_PP &kp C_NEXT &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP
+                &none        &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3   &bt BT_SEL 4        &soft_off  &none    &none      &none      &none        &none
+                &none        &out OUT_USB &out OUT_BLE    &bt BT_CLR   &none          &none               &none      &none    &none      &none      &none        &none
                                                           &none        &none          &none               &none      &none    &none
             >;
         };
