@@ -15,8 +15,9 @@
 #define EMP     2
 #define CTRL    3
 
+// TEST - Launchpad vs Mission Control
+// DONE - Custom rename for long names
 // DONE - Wake from deep sleep
-// TEST - Custom rename for long names
 // DONE - escape grave swap
 // DONE - SoftOff - tryouts
 // DONE - SoftOff - tryout turn back on 
@@ -40,14 +41,14 @@
 
     behaviors {
         // Rename C_AC_DESKTOP_SHOW_ALL_APPLICATIONS
-            Mssn: mission_control {
+            LPad: launch_pad {
                 compatible = "zmk,behavior-mod-morph";
                 #binding-cells = <0>;
                 bindings = <&kp C_AC_DESKTOP_SHOW_ALL_APPLICATIONS>, <&kp C_AC_DESKTOP_SHOW_ALL_APPLICATIONS>;
                 mods = <(MOD_LGUI)>;
             };
         // Rename C_AC_DESKTOP_SHOW_ALL_WINDOWS
-            ShowWndw: show_window {
+            Mssn: mission_control {
                 compatible = "zmk,behavior-mod-morph";
                 #binding-cells = <0>;
                 bindings = <&kp C_AC_DESKTOP_SHOW_ALL_WINDOWS>, <&kp C_AC_DESKTOP_SHOW_ALL_WINDOWS>;
@@ -273,11 +274,11 @@
         control_layer {
             // Option Lower Layer
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |  DIM   | BRIGHT | WINDOW |        |   F4   |   F5   |      |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
+                // |  DIM   | BRIGHT | MsnCtr |        |   F4   |   F5   |      |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 // |        |  BT1   |  BT2   |  BT3   |  BT4   |  BT5   |      | SFTOFF |        |        |        |        |        |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
-                // |        |  USB   |  BLE   |  CLR   |        |        |      |        |        |        |        |        |        |
+                // |        |        |        |  USB   |  BLE   |  CLR   |      |        |        |        |        |        |        |
                 // +--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+
                 //                            |        |        |        |      |        |        |        |
                 //                            +--------+--------+--------+      +--------+--------+--------+
@@ -285,7 +286,7 @@
             bindings = <
                     &Dim     &Brgt    &Mssn    &none    &kp F4   &kp F5          &Prev     &Play   &Next    &Mute    &VDwn    &VUp
                     &none    &Bth0    &Bth1    &Bth2    &Bth3    &Bth4           &soft_off &none   &none    &none    &none    &none
-                    &none    &OUsb    &OBth    &BtCl    &none    &none           &none     &none   &none    &none    &none    &none
+                    &none    &none    &none    &OUsb    &OBth    &BtCl           &none     &none   &none    &none    &none    &none
                                                &none    &none    &none           &none     &none   &none
             >;
         };
