@@ -12,9 +12,12 @@
 
 #define MO_TOG(layer) &mo_tog layer layer   // Macro to apply momentary-layer-on-hold/toggle-layer-on-tap to a specific layer
 
-// TEST - Get rid of gresc
-// TEST - Change Lily58 Minus - to second layer
-// TEST - Change Lily58 Backslash - to second layer
+// TODO - Custom rename for long names
+// TODO - Wake from Deep Sleep
+// DONE - Double Grave
+// DONE - Change Lily58 Minus - to second layer
+// DONE - Change Lily58 Backslash - to second layer
+// DONE - Get rid of gresc
 // DONE - Test Lily58 soft off
 // DONE - Change Lily58 left hand left-most thumb cluster key
 // DONE - Add Lily58 Show all apps
@@ -77,7 +80,7 @@
 
             bindings = <
                 &kp GRAVE &kp N1   &kp N2   &kp N3    &kp N4    &kp N5                             &kp N6      &kp N7      &kp N8    &kp N9    &kp N0   &kp EQUAL
-                &kp ESC   &kp Q    &kp W    &kp E     &kp R     &kp T                              &kp Y       &kp U       &kp I     &kp O     &kp P    &kp BSPC
+                &kp GRAVE &kp Q    &kp W    &kp E     &kp R     &kp T                              &kp Y       &kp U       &kp I     &kp O     &kp P    &kp BSPC
                 &kp TAB   &kp A    &kp S    &kp D     &kp F     &kp G                              &kp H       &kp J       &kp K     &kp L     &kp SEMI &kp SQT
                 &kp LSHFT &none    &kp Z    &kp X     &kp C     &kp V    &none          &none      &kp B       &kp N       &kp M     &kp COMMA &kp DOT  &kp FSLH 
                                             &none     &kp LCTRL &kp LALT &kp LGUI       &kp SPACE  &kp RET     &mo 1       &none
