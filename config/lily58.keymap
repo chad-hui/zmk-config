@@ -216,7 +216,7 @@
                     &kp ESC   &Bth0   &Bth1    &Bth2    &Bth3    &Bth4                             &soft_off &none    &none    &none     &none     &kp MINUS 
                     &kp TAB   &OUsb   &OBth    &BtCl    &none    &kp LBKT                          &kp RBKT  &kp HOME &kp UP   &kp END   &kp PG_UP &none 
                     &kp LSHFT &none   &none    &none    &none    &none    &none          &none     &none     &kp LEFT &kp DOWN &kp RIGHT &kp PG_DN &kp BSLH 
-                                                        &none    &kp RALT &kp LGUI       &kp SPACE &kp RET   &none    &none    &none
+                                               &none    &none    &kp RALT &kp LGUI       &kp SPACE &kp RET   &none    &none    &none
             >;
         };
     };
