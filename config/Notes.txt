@@ -1,3 +1,7 @@
 Change Lily58 left hand left-most thumb cluster key
 Change Lily58 left hand Tab
 Change Lily58 arrows
+Change Lily58 Backspace
+Change Lily58 Escape
+
+Swap corne enter vs Numberlayer
