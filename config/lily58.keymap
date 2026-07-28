@@ -11,35 +11,41 @@
 #include <dt-bindings/zmk/outputs.h>
 
 #define MO_TOG(layer) &mo_tog layer layer   // Macro to apply momentary-layer-on-hold/toggle-layer-on-tap to a specific layer
+#define DEFAULT 0
+#define NAV     1
+#define EMP     2
+#define CTRL    3
 
-// TODO - Custom rename for long names
-// TODO - Wake from Deep Sleep
-// DONE - Double Grave
-// DONE - Change Lily58 Minus - to second layer
-// DONE - Change Lily58 Backslash - to second layer
-// DONE - Get rid of gresc
-// DONE - Test Lily58 soft off
-// DONE - Change Lily58 left hand left-most thumb cluster key
-// DONE - Add Lily58 Show all apps
-// DONE - Change Lily58 Backspace - BSPC vs BSPCDEL & Location
-// DONE - Change Lily58 arrows
-// DONE - Change Lily58 Escape
-// DONE - Change Lily58 left hand Tab
 
 / {
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        tri_layer {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+
     behaviors {
         // Rename C_AC_DESKTOP_SHOW_ALL_APPLICATIONS
-            LPad: launch_pad {
+            ShwApp: show_app {
                 compatible = "zmk,behavior-mod-morph";
                 #binding-cells = <0>;
                 bindings = <&kp C_AC_DESKTOP_SHOW_ALL_APPLICATIONS>, <&kp C_AC_DESKTOP_SHOW_ALL_APPLICATIONS>;
                 mods = <(MOD_LGUI)>;
             };
         // Rename C_AC_DESKTOP_SHOW_ALL_WINDOWS
-            Mssn: mission_control {
+            ShwWndw: show_window {
                 compatible = "zmk,behavior-mod-morph";
                 #binding-cells = <0>;
                 bindings = <&kp C_AC_DESKTOP_SHOW_ALL_WINDOWS>, <&kp C_AC_DESKTOP_SHOW_ALL_WINDOWS>;
+                mods = <(MOD_LGUI)>;
+            };
+        // CMD + BACKSPACE = DELETE
+            bsdel: backspace_del {
+                compatible = "zmk,behavior-mod-morph";
+                #binding-cells = <0>;
+                bindings = <&kp BACKSPACE>, <&kp DELETE>;
                 mods = <(MOD_LGUI)>;
             };
         // Rename Bluetooth 0
@@ -154,69 +160,125 @@
                 bindings = <&bt BT_CLR>, <&bt BT_CLR>;
                 mods = <(MOD_LGUI)>;
             };
-        // CMD + BACKSPACE = DELETE
-            bsdel: backspace_del {
-                compatible = "zmk,behavior-mod-morph";
-                #binding-cells = <0>;
-                bindings = <&kp BACKSPACE>, <&kp DELETE>;
-                mods = <(MOD_LGUI)>;
-            };
-        // CMD + GRAVE = ESCAPE
-            gresc: grave_escape {
-                compatible = "zmk,behavior-mod-morph";
-                label = "GRAVE_ESCAPE";
-                #binding-cells = <0>;
-                bindings = <&kp GRAVE>, <&kp ESC>;
-                mods = <(MOD_LGUI)>;
-        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-            // 
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // |   `    |   1    |   2    |   3    |   4    |   5    |                        |   6    |   7    |   8    |   9    |   0    |   =    |
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // |   `    |   Q    |   W    |   E    |   R    |   T    |                        |   Y    |   U    |   I    |   O    |   P    |  BSPC  |
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // | TAB    |   A    |   S    |   D    |   F    |   G    |                        |   H    |   J    |   K    |   L    |   ;    |   '    |
-                // +--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------+
-                // | SHIFT  |        |   Z    |   X    |   C    |   V    |        |      |        |   B    |   N    |   M    |   ,    |   .    |   /    |
-                // +--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------+
-                //                            |        |  CTRL  |  OPT   |  CMD   |      | SPACE  | ENTER  | LAYER  |        |
-                //                            +--------+--------+--------+--------+      +--------+--------+--------+--------+
+            // Normal Layer
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |   `    |   q    |   w    |   e    |   r    |   t    |                          |   y    |   u    |   i    |   o    |   p    |  BSPC  |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // | TAB    |   a    |   s    |   d    |   f    |   g    |                          |   h    |   j    |   k    |   l    |   ;    |   '    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // | SHIFT  |  LYER2 |   z    |   x    |   c    |   v    |        |        |        |   b    |   n    |   m    |   ,    |   .    |   /    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |  CTRL  |  OPT   |  CMD   |        | SPACE  | ENTER  | LAYER  |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+--------+
+
+            // Shift Layer (Momentary)
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |   ~    |   Q    |   W    |   E    |   R    |   T    |                          |   Y    |   U    |   I    |   O    |   P    |  BSPC  |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // | TAB    |   A    |   S    |   D    |   F    |   G    |                          |   H    |   J    |   K    |   L    |   ;    |   '    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // | SHIFT  | LAYER2 |   Z    |   X    |   C    |   V    |        |        |        |   B    |   N    |   M    |   ,    |   .    |   /    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |  CTRL  |  OPT   |  CMD   |        |  SPCE  |  ENTR  |  LYER  |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+--------+
 
             bindings = <
-                &kp GRAVE &kp N1   &kp N2   &kp N3    &kp N4    &kp N5                             &kp N6      &kp N7      &kp N8    &kp N9    &kp N0   &kp EQUAL
-                &kp GRAVE &kp Q    &kp W    &kp E     &kp R     &kp T                              &kp Y       &kp U       &kp I     &kp O     &kp P    &kp BSPC
-                &kp TAB   &kp A    &kp S    &kp D     &kp F     &kp G                              &kp H       &kp J       &kp K     &kp L     &kp SEMI &kp SQT
-                &kp LSHFT &none    &kp Z    &kp X     &kp C     &kp V    &none          &none      &kp B       &kp N       &kp M     &kp COMMA &kp DOT  &kp FSLH 
-                                            &none     &kp LCTRL &kp LALT &kp LGUI       &kp SPACE  &kp RET     &mo 1       &none
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none    &none
+                    &kp GRAVE &kp Q    &kp W    &kp E     &kp R     &kp T                                  &kp Y       &kp U       &kp I     &kp O     &kp P    &bsdel
+                    &kp TAB   &kp A    &kp S    &kp D     &kp F     &kp G                                  &kp H       &kp J       &kp K     &kp L     &kp SEMI &kp SQT
+                    &kp LSHFT &mo 2    &kp Z    &kp X     &kp C     &kp V    &none              &none      &kp B       &kp N       &kp M     &kp COMMA &kp DOT  &kp FSLH 
+                                                &none     &kp LCTRL &kp LALT &kp LGUI           &kp SPACE  &kp RET     &mo 1       &none
             >;
         };
+        navigation_layer {
+                                                                                                          
+            // Navigation Layer (Momentary)
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |  ESC   |   1    |   2    |   3    |   4    |   5    |                          |   6    |   7    |   8    |   9    |   0    |   =    |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |  HOME  |   ^    |  END   | PG UP  |   -    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // | SHIFT  | LAYER2 |        |        |        |   [    |        |        |        |   ]    |   <-   |   v    |  ->    | PG DN  |   \    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |  CTRL  |  OPT   |  CMD   |        |  SPCE  |  ENTR  |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+
 
-        lower_layer {
-            //
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // |  DIM   | BRIGHT | WINDOW |        |   F4   |   F5   |                        |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // | ESC    |  BT1   |  BT2   |  BT3   |  BT4   |  BT5   |                        | SFTOFF |        |        |        |        |   -    |
-                // +--------+--------+--------+--------+--------+--------+                        +--------+--------+--------+--------+--------+--------+
-                // | TAB    |  USB   |  BLE   |  CLR   |        |    [   |                        |   ]    |  HOME  |   ^    |  END   | PG UP  |        |
-                // +--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------+
-                // | SHIFT  |        |        |        |        |        |        |      |        |        |   <-   |   v    |  ->    | PG DN  |   \    |
-                // +--------+--------+--------+--------+--------+--------+--------+      +--------+--------+--------+--------+--------+--------+--------+
-                //                            |        |  CTRL  |  OPT   |  CMD   |      | SPACE  | ENTER  |        |        |
-                //                            +--------+--------+--------+--------+      +--------+--------+--------+--------+
+            // Shift Navigation Layer (Momentary)
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |  ESC   |   !    |   @    |   #    |   $    |   %    |                          |   ^    |   &    |   *    |   (    |   )    |   +    |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |   {    |                          |   }    |  HOME  |   ^    |  END   | PG UP  |   _    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // |        | LAYER2 |        |        |        |        |        |        |        |        |   <-   |   v    |  ->    | PG DN  |   \    |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |  CTRL  |  OPT   |  CMD   |        |  SPCE  |  ENTR  |        |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+--------+
 
             bindings = <
-                    &Dim      &Brgt   &Mssn    &none    &kp F4   &kp F5                            &Prev     &Play    &Next    &Mute     &VDwn     &VUp
-                    &kp ESC   &Bth0   &Bth1    &Bth2    &Bth3    &Bth4                             &soft_off &none    &none    &none     &none     &kp MINUS 
-                    &kp TAB   &OUsb   &OBth    &BtCl    &none    &kp LBKT                          &kp RBKT  &kp HOME &kp UP   &kp END   &kp PG_UP &none 
-                    &kp LSHFT &none   &none    &none    &none    &none    &none          &none     &none     &kp LEFT &kp DOWN &kp RIGHT &kp PG_DN &kp BSLH 
-                                               &none    &none    &kp RALT &kp LGUI       &kp SPACE &kp RET   &none    &none    &none
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none     &none
+                    &kp ESC   &kp N1   &kp N2   &kp N3    &kp N4    &kp N5                                 &kp N6      &kp N7      &kp N8    &kp N9    &kp N0    &kp EQUAL
+                    &none     &none    &none    &none     &none     &kp LBKT                               &kp RBKT    &kp HOME    &kp UP    &kp END   &kp PG_UP &kp MINUS
+                    &none     &mo 2    &none    &none     &none     &none     &none             &none      &none       &kp LEFT    &kp DOWN  &kp RIGHT &kp PG_DN &kp BSLH
+                                                &none     &kp LCTRL &kp RALT  &kp LGUI          &kp SPACE  &kp RET     &none       &none
+            >;
+        };
+        empty_layer {
+            // Empty Layer (Momentary)
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |        |        |        |        |        |        | SETTNG |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+--------+
+
+            
+            bindings = <
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none     &none
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none     &none
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none     &none
+                    &none     &none    &none    &none     &none     &none     &none              &none     &none       &none       &none     &none     &none     &none
+                                                &none     &none     &none     &none              &none     &none       &mo 1       &none
+            >;
+        };
+        control_layer {
+            //
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |  DIM   | BRIGHT | WINDOW |SHOWAPP |  APP   |   F5   |                          |  BACK  |  PLAY  |  NEXT  |  MUTE  | V DOWN |  V UP  |
+                // +--------+--------+--------+--------+--------+--------+                          +--------+--------+--------+--------+--------+--------+
+                // |        |  BT1   |  BT2   |  BT3   |  BT4   |  BT5   |                          |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                // |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+                // +--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------+
+                //                            |        |        |        |        |        |        |        |        |        |
+                //                            +--------+--------+--------+--------+        +--------+--------+--------+--------+
+
+            bindings = <
+                    &none     &none    &none    &none     &none     &none                                  &none       &none       &none     &none     &none     &none
+                    &Dim      &Brgt    &ShwWndw &ShwApp   &kp K_APP &kp F5                                 &Prev       &Play       &Next     &Mute     &VDwn     &VUp
+                    &none     &Bth0    &Bth1    &Bth2     &Bth3     &Bth4                                  &none       &none       &none     &none     &none     &none 
+                    &none     &none    &none    &none     &none     &none    &none                 &none   &none       &none       &none     &none     &none     &none
+                                                &none     &none     &none    &none                 &none   &none       &none       &none
             >;
         };
     };
