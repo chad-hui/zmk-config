@@ -1,0 +1,16 @@
+/*
+ * Lily58 left half: P1.13 (pro_micro 15) has a lost pad on the nice!nano,
+ * killing the 3rd column from the left (SW4/SW10/SW16/SW22).
+ * Column 2 is rewired to D4/A6 (pro_micro 4 / P0.22), an otherwise unused pin.
+ */
+
+&kscan0 {
+    col-gpios
+        = <&pro_micro 19 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 4  GPIO_ACTIVE_HIGH>
+        , <&pro_micro 14 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 16 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 10 GPIO_ACTIVE_HIGH>
+        ;
+};
