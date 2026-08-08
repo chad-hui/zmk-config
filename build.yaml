@@ -19,7 +19,7 @@ include:
   - board: nice_nano_v2
     shield: lily58_left
     artifact-name: lily58_left-rewired
-    cmake-args: -DEXTRA_DTC_OVERLAY_FILE=config/lily58_left-rewired.overlay
+    cmake-args: -DEXTRA_DTC_OVERLAY_FILE=$GITHUB_WORKSPACE/config/lily58_left-rewired.overlay
   - board: nice_nano_v2
     shield: lily58_right
   - board: nice_nano_v2
